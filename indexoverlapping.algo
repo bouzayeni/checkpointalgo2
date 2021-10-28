@@ -1,0 +1,48 @@
+//solution 1
+ALGORITHM sum_overlapping
+VAR
+    tab1 : ARRAY_OF integer:= [12, 13, 6, 10];
+    tab2 : ARRAY_OF integer:= [13, 10, 16, 15];
+    i,j,sum:integer;
+    sum:integer:=0
+BEGIN
+    FOR i FROM 0 TO tab1.length STEP 1  DO
+        FOR j FROM 0 TO tab2.length STEP 1  DO
+            IF (tab1[i]==tab2[j] ) THEN
+               sum=sum+tab1[i]+tab2[j]
+            END_IF
+        END_FOR
+    END_FOR
+     Write('Sum is ',sum)
+END
+
+
+//solution 2
+ALGORITHM sum_overloppinghashtabel
+VAR
+    tab1 : ARRAY_OF INTEGER:= [12, 13, 6, 10];
+    tab2 : ARRAY_OF INTEGER:= [13, 10, 16, 15];
+    tab: ARRAY_OF INTEGER
+    htab : HASH_TABLE<INTEGER,INTEGER>
+    i,key,:INTEGER;
+    sum:INTEGER:=0
+    cout:INTEGER=1
+
+BEGIN
+      tab:= tab1.concat(tab2)
+    FOR i FROM 0 TO tab.length -1 STEP 1  DO
+       IF (htab.lookup(tab[i]) = TRUE) THEN
+           count := htab.get(tab[i]);
+           htab.insert(tab[i],count+1);
+       ELSE
+           htab.insert(tab[i],1);
+       END_IF
+   END_FOR
+
+   FOR key IN htab DO
+        IF (htab.get[key]>1) THEN
+            sum=sum+key
+        END_IF
+   END_FOR
+    Write('Sum is:',sum)
+END
